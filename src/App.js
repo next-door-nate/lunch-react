@@ -11,8 +11,8 @@ class App extends Component {
         <header>
           <div className="office">
             <div className="office__selector">
-              <h4>Taylor Gang</h4>
-              <img src={ChevronDown} alt="Chevron Down" />
+              <h5 className="office__title">Taylor Gang</h5>
+              <img className="office__arrow" src={ChevronDown} alt="Chevron Down" />
             </div>
             <p className="office__caterer">Catered by: <a href="#">Urban Prairie</a></p>
           </div>
