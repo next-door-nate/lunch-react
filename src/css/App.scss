@@ -2,9 +2,64 @@
 
 $blue: #224762;
 $gold: #E7D185;
+$lightblue: #85D5E6;
+$red: #785151;
+$green: #A1D781;
+$purple: #655178;
 $white: #fff;
 $offwhite: rgba(255,255,255,.8);
 
+.color {
+  &__one {
+    &html {
+      background: $blue;
+    }
+    body {
+      background: $blue;
+    }
+    .menu-item__title {
+      color: $gold;
+    }
+    a {
+      color: $gold;
+    }
+    .office__selector {
+      &:hover {
+        .office__title {
+          color: $gold;
+        }
+      }
+    }
+  }
+  &__two {
+    &html {
+      background: $red;
+    }
+    body {
+      background: $red;
+    }
+    .menu-item__title {
+      color: $lightblue;
+    }
+    a {
+      color: $lightblue;
+    }
+  }
+  &__three {
+    &html {
+      background: $purple;
+    }
+    body {
+      background: $purple;
+    }
+    .menu-item__title {
+      color: $green;
+    }
+    a {
+      color: $green;
+    }
+  }
+}
 *{
   box-sizing: border-box;
 }
@@ -13,7 +68,6 @@ html,
 body{
   width: 100%;
   height: 100%;
-  background: $blue;
 }
 
 h1,
@@ -22,14 +76,34 @@ h3,
 h4,
 h5,
 h6{
+  margin: 0;
   font-family: 'Nova Cut', cursive;
-  color: $gold;
-  font-size: 42px;
+  font-weight: normal;
 }
+h1 {font-size: 56px;}
+h2 {font-size: 48px;}
+h3 {font-size: 40px;}
+h4 {font-size: 32px;}
+h5 {font-size: 24px;}
+h6 {font-size: 16px;}
 
 p{
+  margin: 0;
   font-family: 'Fira Mono', monospace;
+  font-size: 16px;
+  line-height: 24px;
   color: $offwhite;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+   text-decoration: underline;     
+  }
+}
+
+.text-center {
+  text-align: center;
 }
 
 .logo{
@@ -77,20 +151,54 @@ header{
 
 .office{
 
-  &__selector{
+  &__selector {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 300px;
-
-    h4{
-      color: #fff;
-      margin: 0;
-    }
-
-    img{
-      width: 24px;
-    }
+    margin-bottom: 10px;
+    cursor: pointer;
   }
 
+  &__title {
+    margin: 0;
+    color: #fff;
+    transition: all .2s ease-in-out;
+  }
+
+  &__arrow {
+    width: 24px;
+  }
+
+  &__caterer {
+    font-size: 12px;
+  }
+
+}
+.menu-item {
+  margin-bottom: 30px;
+  padding-left: 40%;
+  &__inner {
+    display: inline-block;
+    text-align: left;
+  }
+  &__title {
+    margin-bottom: 5px;
+  }
+  &__food {
+    padding-left: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .menu-item {
+    padding-left: 20%;
+  }
+}
+@media (max-width: 480px) {
+  .menu-item {
+    display: block;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
