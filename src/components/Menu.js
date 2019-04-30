@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MenuItem from './MenuItem';
+import Moment from 'react-moment';
 
 class Menu extends Component {
 
@@ -9,32 +10,56 @@ class Menu extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: {
-        monday: {},
-        tuesday: {},
-        wednesday: {},
-        thursday: {},
-        friday: {}
-      }
+      days: [
+        {
+          name: 'Monday',
+          handle: 'monday'
+        },
+        {
+          name: 'Tuesday',
+          handle: 'tuesday'
+        },
+        {
+          name: 'Wednesday',
+          handle: 'wednesday'
+        },
+        {
+          name: 'Thursday',
+          handle: 'thursday'
+        },
+        {
+          name: 'Friday',
+          handle: 'friday'
+        }
+      ],
+      caterers: [
+        {
+          name: 'Urban Prairie',
+          url: 'http://www.urbanprairiecuisine.com/'
+        },
+        {
+          name: 'All Seasons',
+          url: 'http://allseasonscatering.ca/'
+        }
+      ],
+      menu: {}
     };
   }
   
   componentDidMount(){
-    document.getElementsByTagName( 'html' )[0].classList.add("color__one");
-    fetch('https://cdn.contentful.com/spaces/6qqte9wlq16o/entries?access_token=bab0ec81f61331d6e29f5c0e3164d8d506c5ae6957088607c0125a71124177c7')
+    const htmlEl = document.getElementsByTagName( 'html' )[0];
+    const prefix = "color__";
+    const classes = htmlEl.className.split(" ").filter(c => !c.startsWith(prefix));
+    htmlEl.className = classes.join(" ").trim();
+    htmlEl.classList.add(this.props.office.pageClass);
+    fetch(this.props.office.endpoint)
     .then(res => res.json())
     .then(
       (result) => {
         console.log(result, result.items[0].fields);
         this.setState({
           isLoaded: true,
-          items: {
-            monday: result.items[0].fields.monday,
-            tuesday: result.items[0].fields.tuesday,
-            wednesday: result.items[0].fields.wednesday,
-            thursday: result.items[0].fields.thursday,
-            friday: result.items[0].fields.friday
-          }
+          menu: result.items[0].fields
         })
       },
       (error) => {
@@ -47,61 +72,30 @@ class Menu extends Component {
   }
 
   render() {
-
-    const { error, isLoaded, items } = this.state;
-    console.log({items});
+    const { error, isLoaded, days, caterers, menu } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div className="loading">Loading...</div>;
     } else {
+      const caterer = caterers.filter(obj => {
+        return obj.name === menu.caterer
+      })[0];
       return (
         <div className="wrapper">
-          <div className="menu-item">
-            <div className="menu-item__inner">
-              <h2 className="menu-item__title">Monday</h2>
-              <p className="menu-item__food">
-                {items.monday[0]}<br />
-                {items.monday[1]}
-              </p>
+          <p className="office-caterer">Catered by: <a href={`${caterer.url}`} target="_blank">{menu.caterer}</a><br />
+          <Moment format="MMMM D">{menu.weekStart}</Moment> - <Moment format="MMMM D">{menu.weekEnd}</Moment></p>
+          {days.map((day, i) =>
+            <div key={i} className="menu-item">
+              <div className="menu-item__inner">
+                <h2 className="menu-item__title">{day.name}</h2>
+                <p className="menu-item__food">
+                  {menu[day.handle][0]}<br />
+                  {menu[day.handle][1]}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="menu-item">
-            <div className="menu-item__inner">
-              <h2 className="menu-item__title">Tuesday</h2>
-              <p className="menu-item__food">
-                {items.tuesday[0]}<br />
-                {items.tuesday[1]}
-              </p>
-            </div>
-          </div>
-          <div className="menu-item">
-            <div className="menu-item__inner">
-              <h2 className="menu-item__title">Wednesday</h2>
-              <p className="menu-item__food">
-                {items.wednesday[0]}<br />
-                {items.wednesday[1]}
-              </p>
-            </div>
-          </div>
-          <div className="menu-item">
-            <div className="menu-item__inner">
-              <h2 className="menu-item__title">Thursday</h2>
-              <p className="menu-item__food">
-                {items.thursday[0]}<br />
-                {items.thursday[1]}
-              </p>
-            </div>
-          </div>
-          <div className="menu-item">
-            <div className="menu-item__inner">
-              <h2 className="menu-item__title">Friday</h2>
-              <p className="menu-item__food">
-                {items.friday[0]}<br />
-                {items.friday[1]}
-              </p>
-            </div>
-          </div>
+          )}
           <p className="text-center">&lt;3</p>
         </div>
       );
