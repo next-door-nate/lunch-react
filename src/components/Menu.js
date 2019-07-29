@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MenuItem from './MenuItem';
 import Moment from 'react-moment';
 
 class Menu extends Component {
@@ -83,7 +82,7 @@ class Menu extends Component {
       })[0];
       return (
         <div className="wrapper">
-          <p className="office-caterer">Catered by: <a href={`${caterer.url}`} target="_blank">{menu.caterer}</a><br />
+          <p className="office-caterer">Catered by: <a href={`${caterer.url}`} rel="noopener noreferrer" target="_blank">{menu.caterer}</a><br />
           <Moment format="MMMM D">{menu.weekStart}</Moment> - <Moment format="MMMM D">{menu.weekEnd}</Moment></p>
           {days.map((day, i) =>
             <div key={i} className="menu-item">
@@ -91,7 +90,9 @@ class Menu extends Component {
                 <h2 className="menu-item__title">{day.name}</h2>
                 <p className="menu-item__food">
                   {menu[day.handle][0]}<br />
-                  {menu[day.handle][1]}
+                  {menu[day.handle][1]}<br />
+                  {menu[day.handle][2]}<br />
+                  {menu[day.handle][3]}
                 </p>
               </div>
             </div>

@@ -1,6 +1,6 @@
 /* React */
 import React, { Component } from 'react';
-import {Route, Link, withRouter } from "react-router-dom";
+import {Route, withRouter } from "react-router-dom";
 
 /* Styles */
 import './css/App.scss';
@@ -23,14 +23,14 @@ class App extends Component {
       currentOfficeHoverName: '',
       offices: [
         {
-          name: 'Taylor',
+          name: 'Fultz',
           path: [
-            '/taylor/',
+            '/fultz/',
             '/'
           ],
           pageClass: 'color__one',
           hoverClass: 'office__one',
-          endpoint: 'https://cdn.contentful.com/spaces/sw4tprcfpvo7/entries?access_token=c04ffd4690c2804f7c772577cdd59065d5c3bfd3e9b06147905c11979a06be3c'
+          endpoint: 'https://cdn.contentful.com/spaces/6qqte9wlq16o/entries?access_token=bab0ec81f61331d6e29f5c0e3164d8d506c5ae6957088607c0125a71124177c7'
         },
         {
           name: 'Smartpark',
@@ -40,15 +40,6 @@ class App extends Component {
           pageClass: 'color__two',
           hoverClass: 'office__two',
           endpoint: 'https://cdn.contentful.com/spaces/sw4tprcfpvo7/entries?access_token=c04ffd4690c2804f7c772577cdd59065d5c3bfd3e9b06147905c11979a06be3c'
-        },
-        {
-          name: 'Fultz',
-          path: [
-            '/fultz/'
-          ],
-          pageClass: 'color__three',
-          hoverClass: 'office__three',
-          endpoint: 'https://cdn.contentful.com/spaces/6qqte9wlq16o/entries?access_token=bab0ec81f61331d6e29f5c0e3164d8d506c5ae6957088607c0125a71124177c7'
         }
       ]
     };
